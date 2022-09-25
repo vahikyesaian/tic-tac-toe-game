@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .fp{
+            width: 100%;
+            height: 100vh;
+            /* border: 10px solid black; */
+            background-color: #212121;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #tictac{
+            width: 450px;
+            height: 600px;
+            /* border: 1px solid white; */
+            border-radius: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            background-color: #666;
+            box-shadow: 0px 0px 10px 5px whitesmoke;
+        }
+        #tictac>section{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            /* background-color: aqua; */
+
+        }
+        #tictac>section>h2{
+            font-family: 'Times New Roman', Times, serif;
+            text-transform: capitalize;
+            font-size: 35px;
+            color: white;
+            transition: .4s;
+        }
+        #tictac>section>h2:hover{
+            text-shadow: -1px 1px 10px;
+        }
+        #tictac>div{
+            width: 110px;
+            height: 110px;
+            /* border: 1px solid white; */
+            display: flex;
+            margin: 10px;
+            border-radius: 10px;
+            background-color: #333;
+            justify-content: center;
+            align-items: center;
+            font-size: 70px;
+            color: rgba(245, 245, 245, 0.233);
+            transition: .4s;
+            
+        }
+        #tictac>div:hover{
+            background-color: black;
+        }
+        #tictac>button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 20px;
+            width: 60%;
+            height: 50px;
+            /* border: 1px solid white; */
+            background-color: #444;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border: none;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            text-transform: capitalize;
+            transition: .4s;
+        }
+        #tictac>button:hover{
+            background-color: black;
+        }
+
+    </style>
+</head>
+<body>
+    <section class="fp">
+        <div id="tictac">
+            <section>
+                <h2>play tic tac toe</h2>
+            </section>
+            <div data-status="off">1</div>
+            <div data-status="off">2</div>
+            <div data-status="off">3</div>
+            <div data-status="off">4</div>
+            <div data-status="off">5</div>
+            <div data-status="off">6</div>
+            <div data-status="off">7</div>
+            <div data-status="off">8</div>
+            <div data-status="off">9</div>
+            <button>reset</button>
+        </div>
+    </section>
+</body>
+<script>
+    let _div=document.querySelectorAll('#tictac>div')
+    let i= 1
+    let con =[]
+    _div.forEach(function(val){
+        val.addEventListener('click',(e)=>{
+            if((val.getAttribute('data-status'))=='off'){
+            if(i % 2){
+                val.innerHTML='X'
+
+            }else{
+                val.innerHTML='O'
+            }
+             i++   
+             val.style.color='white'
+             val.setAttribute('data-status','on')
+            }
+            for(d=0; d<9; d++){
+                con[d]=_div[d].innerHTML
+            }
+            console.log(con)
+                if((con[0]==con[1])&&(con[0]==con[2])){
+                    _div[0].style.background='red'
+                    _div[1].style.background='red'
+                    _div[2].style.background='red'
+                    _end()
+                    return false
+                }
+                if((con[3]==con[5])&&(con[4]==con[5])){
+                    _div[3].style.background='red'
+                    _div[4].style.background='red'
+                    _div[5].style.background='red'
+                    _end()
+                    return false
+                }
+                if((con[6]==con[8])&&(con[7]==con[8])){
+                    _div[6].style.background='red'
+                    _div[7].style.background='red'
+                    _div[8].style.background='red'
+                    _end()
+                    return false
+                }
+                if((con[0]==con[6])&&(con[3]==con[6])){
+                    _div[3].style.background='red'
+                    _div[0].style.background='red'
+                    _div[6].style.background='red'
+                    _end()
+                    return false
+                }
+                if((con[1]==con[7])&&(con[4]==con[7])){
+                    _div[1].style.background='red'
+                    _div[7].style.background='red'
+                    _div[4].style.background='red'
+                    _end()
+                    return false
+                }
+                if((con[2]==con[8])&&(con[5]==con[8])){
+                    _div[2].style.background='red'
+                    _div[8].style.background='red'
+                    _div[5].style.background='red'
+                    _end()
+                    return false
+                }
+                if((con[0]==con[8])&&(con[4]==con[8])){
+                    _div[0].style.background='red'
+                    _div[8].style.background='red'
+                    _div[4].style.background='red'
+                    _end()
+                    return false
+                }
+                if((con[2]==con[6])&&(con[4]==con[6])){
+                    _div[2].style.background='red'
+                    _div[6].style.background='red'
+                    _div[4].style.background='red'
+                    _end()
+                    return false
+                }
+            
+            
+
+
+        })
+    })
+    document.getElementsByTagName('button')[0].addEventListener('click', ()=>{
+        location.reload()
+    })
+    function _end(){
+        for(v=0; v<9; v++){
+            _div[v].setAttribute('data-status','on')
+        }
+    }
+
+
+
+
+
+</script>
+</html>
